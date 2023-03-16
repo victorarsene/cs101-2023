@@ -1,16 +1,22 @@
 #include <stdio.h>
-#include <stdlib.h>
+typedef struct person {
+    int id;
+    char first_name[32];
+    char last_name[32];
+} person_t;
 
-int main() {
-    FILE* fp=fopen("main2.txt","w");
-    FILE* mainfp = fopen("main2.c", "r");
-    char program[1000];
-    int i = 0;
-    while (fgets(program+i, 1000-i, mainfp) != NULL) {
-        i=i+strlen(program+i);
+int main(){
+    FILE*wfp;
+    wfp = fopen("person.bin", "w+");
+    person_t p[5] = { {1, "IU", "Lee"},
+                      {2, "IUU", "Lee"},
+                      {3, "IUUU", "Lee"},
+                      {4, "IUUUU", "Lee"},
+                      {5, "IUUUUU", "Lee"},
+    };
+    for (int i=0; i<5; i++){
+        fwrite(p+i, sizeof(person_t), 1, wfp);
+        
     }
-    fprintf(fp,"%s",program);
-    fclose(fp);
-    fclose(mainfp);
-    return 0;
+    fclose(wfp);
 }
